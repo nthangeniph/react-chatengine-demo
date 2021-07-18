@@ -9,7 +9,7 @@ export const Chat = () => {
     setMyChats,
     chatConfig,
     selectedChat,
-    selectChatClick,
+    selectedChatClick,
     setSelectedChat,
   } = useChat();
 
@@ -34,7 +34,7 @@ export const Chat = () => {
           }}
           onNewChat={chat => {
             if (chat.admin.username === chatConfig.userName) {
-              selectChatClick(chat);
+              selectedChatClick(chat);
             }
             setMyChats([...myChats, chat].sort((a, b) => a.id - b.id));
           }}
