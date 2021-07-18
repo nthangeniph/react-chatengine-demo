@@ -14,7 +14,7 @@ export const Chat = () => {
   } = useChat();
 
   useEffect(() => {
-    console.log('My Chats: ', myChats);
+    console.log('My Chats test deployment: ', myChats);
   }, [myChats]);
 
   useEffect(() => {
