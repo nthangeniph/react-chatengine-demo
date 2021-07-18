@@ -127,13 +127,14 @@ code {
   width: 35px;
   cursor: pointer;
   text-align: right;
-  visibility: hidden;
+  visibility: visible;
 }
 .chat-list-item:hover .chat-item-delete {
   visibility: visible;
 }
 .chat-item-delete:hover {
   color: #cd0000;
+
 }
 .chat-list-preview {
   margin-left: 10px;
