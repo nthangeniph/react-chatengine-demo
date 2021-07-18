@@ -19,7 +19,7 @@ export const ChatAvatar = ({ chat, username, className }) => {
           setAvatar(data.avatar);
         }
       });
-  }, [chat, chatConfig, username]);
+  }, [chat, chatConfig, username,firestore]);
 
   return avatar ? (
     <Image className={className || 'chat-list-avatar'} src={avatar} />

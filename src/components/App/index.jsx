@@ -24,7 +24,7 @@ export const App = () => {
             push(!!authUser?'/':'/Login')
         }
     
-},[authUser,authResolved])
+},[authUser,authResolved,push])
     // useEffect(() => {
     //     firestore.collection('chatUsers').where('userName', '==', 'nthangeniph').get().then(res => {
     //         const user = res?.docs[0]?.data();
