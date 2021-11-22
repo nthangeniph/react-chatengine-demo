@@ -98,7 +98,6 @@ code {
   height: 75px;
   width: 100%;
   padding: 10px;
-
   align-items: center;
   box-shadow: 0px 0px 2px black;
   justify-content: space-between;
@@ -122,19 +121,21 @@ code {
 }
 .selected-chat-item {
   background-color: #18181d;
+  display: flex;
+  flex-direction: row;
 }
 .chat-item-delete {
   width: 35px;
   cursor: pointer;
   text-align: right;
   visibility: visible;
+  color: #cd0000;
 }
 .chat-list-item:hover .chat-item-delete {
   visibility: visible;
 }
 .chat-item-delete:hover {
-  color: #cd0000;
-
+  color: white;
 }
 .chat-list-preview {
   margin-left: 10px;
@@ -411,4 +412,21 @@ code {
   top: 5px;
   right: 5px;
   cursor: pointer;
+}
+.icon-with-names {
+  display: flex;
+  margin-bottom: 0.8rem;
+}
+@media only screen and (max-width: 600px) {
+  .chat-container {
+    width: 100%;
+  }
+  .current-chat {
+    visibility: hidden;
+  }
+
+  .create-chat-button {
+    width: 100%;
+    margin: 0 0.75rem;
+  }
 }
