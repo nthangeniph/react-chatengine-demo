@@ -27,9 +27,9 @@ export const ChatBackgroundModal = ({ open, setOpen }) => {
         .then(doc => {
           if (doc?.exists) {
             let arrHolder = doc?.data().backgroundImages;
-            arrHolder.map(img => {
+            arrHolder.map(img => 
               setUrls(prev=>[...prev,(JSON.parse(img)).url])
-            })
+            )
             
           }
       
