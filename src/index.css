@@ -376,12 +376,11 @@ code {
   display: none;
 }
 .modal .content {
-  background: #15202b !important;
 }
 .modal .actions,
 .modal .header {
   color: #f2f2f2 !important;
-  background-color: #060f18 !important;
+  background-color: #296fb4 !important;
 }
 
 .sign-out {
@@ -422,4 +421,10 @@ code {
 }
 .seen-read {
   color: lightgreen;
+}
+.modal .content {
+  background: #cdcdcdf3 !important;
+}
+.ui.modal > .content {
+  padding: 0 !important;
 }

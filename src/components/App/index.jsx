@@ -9,7 +9,6 @@ import { ChatProvider } from 'components/context';
 
 export const App = () => {
 
-    // const { firestore } = useFirebase();
     
     const { authUser } = useAuth();
     
@@ -25,18 +24,7 @@ export const App = () => {
         }
     
 },[authUser,authResolved,push])
-    // useEffect(() => {
-    //     firestore.collection('chatUsers').where('userName', '==', 'nthangeniph').get().then(res => {
-    //         const user = res?.docs[0]?.data();
 
-    //         console.log(user);
-    //     })
-
-    // }, [])
-
-    // useEffect(() => {
-    //     console.log('user :>> ', authUser);
-    // },[authUser])
 
 
     return authResolved?(

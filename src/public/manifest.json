@@ -1,8 +1,0 @@
-{
-  "short_name": "PH-Link",
-  "name": "Building a complete chat application with React and Chatengine.io",
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
-}
