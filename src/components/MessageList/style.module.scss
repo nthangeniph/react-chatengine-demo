@@ -1,0 +1,39 @@
+.chatmessages {
+  flex: 1;
+  padding: 25px;
+  overflow-y: auto;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  height: calc(100% - 105px);
+  background-image: url('./../../public/static/img/cool-background-2.png');
+
+  .chatMessageRight {
+    margin-left: 95%;
+    width: 600px;
+    max-width: 600px;
+  }
+  .chatMessageLeft {
+    margin-right: 75%;
+    width: 600px;
+  }
+  .messageTextLeft {
+    margin-bottom: 15px;
+    background-color: rgb(62, 219, 185);
+    display: block;
+    padding: 8px;
+    color: black;
+    border-radius: 25px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: medium;
+  }
+  .messageTextRight {
+    margin-bottom: 15px;
+    background-color: rgb(203, 218, 219);
+    display: block;
+    color: black;
+    border-radius: 25px;
+    padding: 8px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: medium;
+  }
+}

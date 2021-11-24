@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useChat } from 'components/context';
 import { joinUsernames } from 'helpers';
 import { Icon } from 'semantic-ui-react';
@@ -8,9 +8,7 @@ export const ChatToolBar = () => {
     const { selectedChat, chatConfig } = useChat();
     const [searching, setSearching] = useState(false);
 
-    useEffect(() => {
-        
-    })
+   
     
     return (
         <>

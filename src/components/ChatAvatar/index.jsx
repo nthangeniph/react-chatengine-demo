@@ -16,6 +16,7 @@ export const ChatAvatar = ({ chat, username, className }) => {
       .then(snap => {
         const data = snap.docs[0]?.data();
         if (data?.avatar) {
+          
           setAvatar(data.avatar);
         }
       });
