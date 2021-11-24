@@ -65,7 +65,8 @@ export const ChatProvider = ({ children, authUser }) => {
                     })
                 }
                 )
-            }
+        }
+    
     },[authUser])
 
     return (
