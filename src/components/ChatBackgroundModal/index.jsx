@@ -1,3 +1,4 @@
+/* eslint-disable */
 import firebase from 'firebase/app';
 import React from 'react';
 import { Button, Icon, Modal, Search } from 'semantic-ui-react';

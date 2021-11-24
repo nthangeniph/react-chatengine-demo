@@ -1,4 +1,5 @@
-import React,{userReducer,useContext,useEffect} from 'react'
+/* eslint-disable */
+import React, { userReducer, useContext, useEffect } from 'react'
 import { ChatStateContext, ChatActionContext,initialState } from './context';
 import { fetchChatsAction, fetchMyChatAction, setChatConfigAction } from './actions';
 import { ChatReducer } from './reducer';
