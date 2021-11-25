@@ -3,7 +3,7 @@ import React, { userReducer, useContext, useEffect } from 'react'
 import { ChatStateContext, ChatActionContext,initialState } from './context';
 import { fetchChatsAction, fetchMyChatAction, setChatConfigAction } from './actions';
 import { ChatReducer } from './reducer';
-import { newChat, deleteChat, leaveChat, getMessages } from 'react-chat-engine';
+import { newChat, deleteChat, leaveChat } from 'react-chat-engine';
 import {useFirebase } from 'service';
 
 export const ChatProvider = ({ children, authUser }) => {
@@ -39,8 +39,8 @@ export const ChatProvider = ({ children, authUser }) => {
         }
         
     }
-    const selectChatClick = chat => {
-        getMessages(chatConfig, chat.id, messages => {
+    const selectChatClick = messages => {
+     
             dispatch(fetchChatsAction(
                 {
                  ...chat,
@@ -48,7 +48,7 @@ export const ChatProvider = ({ children, authUser }) => {
                 }
             ))
          
-        })
+        
     }
 
 

@@ -30,18 +30,27 @@ export const ChatProvider = ({ children, authUser })=> {
         }
         
     }
-    const selectedChatClick = chat => {
-        getMessages(chatConfig, chat.id, messages => {
-            setSelectedChat(
-                {
-                 ...chat,
-                    messages,
-                }
-            )
+    // const selectedChatClick = chat => {
+    //     getMessages(chatConfig, chat.id, messages => {
+    //         setSelectedChat(
+    //             {
+    //              ...chat,
+    //                 messages,
+    //             }
+    //         )
          
-        })
-    }
+    //     })
+    // }
 
+
+    const selectedChatClick = chat => {
+        getMessages(chatConfig, chat.id, (chatId, messages) => {
+          setSelectedChat({
+            ...chat,
+            messages,
+          });
+        });
+      };
     useEffect(() => {
         if (authUser) {
             firestore

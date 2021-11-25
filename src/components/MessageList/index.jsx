@@ -8,8 +8,6 @@ export const MessageList = () => {
   const { selectedChat, chatConfig } = useChat();
  // useScrollToBottom(selectedChat, style.chatmessages);
 
- 
-
   return (
     <div className={style.chatmessages}>
       {!!selectedChat.messages.length ? (

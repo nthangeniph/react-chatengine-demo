@@ -1,11 +1,10 @@
 import { createContext } from 'react';
 
 export const initialState = {
-    chatConfig: {},
-    myChats:{},
-    
-}
+  chatConfig: {},
+  myChats: {},
+};
 
 export const ChatStateContext = createContext();
 
-export const ChatActionContext= createContext();
+export const ChatActionContext = createContext();
