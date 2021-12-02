@@ -10,7 +10,25 @@ export const ChatProvider = ({ children, authUser })=> {
     const [chatConfig,setChatConfig] = useState();
     const [selectedChat, setSelectedChat] = useState();
 
-    const { firestore} = useFirebase();
+    const { firestore } = useFirebase();
+    
+
+    useEffect(() => {
+        if (authUser) {
+            firestore
+                .collection('chatUsers')
+                .doc(authUser.uid)
+                .onSnapshot(snap => {
+                    setChatConfig({
+                        userSecret: authUser?.uid,
+                        avatar: snap.data()?.avatar,
+                        userName: snap.data()?.userName,
+                        projectID: 'f2ec2674-1412-45b3-9058-87ad0f0c03f3',
+                    })
+                }
+                )
+        }
+    }, [authUser,firestore]);
 
     
     const createChatClick = () => {
@@ -30,17 +48,6 @@ export const ChatProvider = ({ children, authUser })=> {
         }
         
     }
-    // const selectedChatClick = chat => {
-    //     getMessages(chatConfig, chat.id, messages => {
-    //         setSelectedChat(
-    //             {
-    //              ...chat,
-    //                 messages,
-    //             }
-    //         )
-         
-    //     })
-    // }
 
 
     const selectedChatClick = chat => {
@@ -51,22 +58,7 @@ export const ChatProvider = ({ children, authUser })=> {
           });
         });
       };
-    useEffect(() => {
-        if (authUser) {
-            firestore
-                .collection('chatUsers')
-                .doc(authUser.uid)
-                .onSnapshot(snap => {
-                    setChatConfig({
-                        userSecret: authUser?.uid,
-                        avatar: snap.data()?.avatar,
-                        userName: snap.data()?.userName,
-                        projectID: 'f2ec2674-1412-45b3-9058-87ad0f0c03f3',
-                    })
-                }
-                )
-        }
-    }, [authUser,firestore]);
+
 
     return (
         <ChatContext.Provider value={{

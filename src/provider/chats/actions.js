@@ -4,6 +4,7 @@ export const ChatsActionEnums = {
   SetChatConfig: 'SET_CHAT_CONFIG',
   FetchChats: 'FETCH_CHATS',
   FetchMyChat: 'FETCH_MY_CHAT',
+  FetchUserById: 'FETCH_USER_BY_ID',
 };
 
 export const setChatConfigAction = createAction(
@@ -19,4 +20,9 @@ export const fetchChatsAction = createAction(
 export const fetchMyChatAction = createAction(
   ChatsActionEnums.FetchMyChat,
   selectedChat => ({ selectedChat }),
+);
+
+export const fetchUserByIdAction = createAction(
+  ChatsActionEnums.FetchUserById,
+  userDetails => ({ userDetails }),
 );

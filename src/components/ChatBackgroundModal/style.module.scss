@@ -16,6 +16,7 @@
 
     .availbleImages {
       background-color: green;
+      display: grid;
 
       .toolBar {
         display: grid;
@@ -54,7 +55,12 @@
       }
     }
     .preview {
-      background-color: red;
+      position: relative;
+      .previewImage {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
     }
   }
   .dimmer {

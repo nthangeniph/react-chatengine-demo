@@ -2,6 +2,7 @@ import firebase from 'firebase/app'; // <-- This must be first
 import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/firestore';
+import 'firebase/database';
 
 try {
   firebase.initializeApp({
@@ -28,5 +29,6 @@ export const useFirebase = () => {
     auth: firebase.auth(),
     storage: firebase.storage(),
     firestore: firebase.firestore(),
+    database: firebase.database(),
   };
 };

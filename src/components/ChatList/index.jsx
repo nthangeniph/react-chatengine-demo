@@ -3,7 +3,7 @@ import { useChat } from 'components/context';
 import { Icon } from 'semantic-ui-react';
 import { notMe, joinUsernames } from 'helpers';
 import { ChatAvatar } from 'components';
-
+import style from './style.module.scss';
 import { isTyping } from 'react-chat-engine';
 
 
@@ -21,7 +21,7 @@ export const ChatList = () => {
     }, [chatConfig])
 
     return (
-        <div className='chat-list' style={{width:'100%'}}>
+        <div className={style.chatList} style={{width:'100%'}}>
             {myChats.map((chat, index) => (
                 <div className={`chat-list ${selectedChat?.id === chat.id ? 'selected-chat-item' : ''}`} style={{display:'grid',gridTemplateColumns:'85% 15%'}} key={index}>
                     <div className='chat-list-item-content' onClick={() => selectedChatClick(chat)} >

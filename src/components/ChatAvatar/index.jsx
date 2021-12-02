@@ -5,7 +5,8 @@ import React, { useEffect, useState } from 'react';
 
 export const ChatAvatar = ({ chat, username, className }) => {
   const { chatConfig } = useChat();
-  const { firestore} = useFirebase();
+  const { firestore } = useFirebase();
+
   const [avatar, setAvatar] = useState('');
 
   useEffect(() => {
@@ -20,6 +21,8 @@ export const ChatAvatar = ({ chat, username, className }) => {
           setAvatar(data.avatar);
         }
       });
+    
+
   }, [chat, chatConfig, username,firestore]);
 
   return avatar ? (

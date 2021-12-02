@@ -10,6 +10,7 @@ export const Login = () => {
     const { push } = useHistory();
     const { auth} = useFirebase();
     const [serverError, setServerError] = useState('');
+    const [audio]=useState(new Audio('sounds/unlock-padlock.mp3'))
     
     const login = ({ email, password },{setSubmitting}) => {
         auth
@@ -18,6 +19,7 @@ export const Login = () => {
                 if (!res?.user) {
                     setServerError('We are having trouble logging you in.please try again');
                 }
+                audio?.play();
     })
             .catch(error => {
                 if (error?.code === 'auth/wrong-password') {

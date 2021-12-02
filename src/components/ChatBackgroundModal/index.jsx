@@ -1,54 +1,44 @@
 /* eslint-disable */
-import firebase from 'firebase/app';
 import React from 'react';
 import { Button, Icon, Modal, Search } from 'semantic-ui-react';
 import { useRef, useState, useEffect } from 'react';
-import { useFirebase } from 'service';
-
 import { useChat } from 'components/context';
 import style from './style.module.scss';
+import { useBackgrounds ,useChats} from 'provider';
 
 export const ChatBackgroundModal = ({ open, setOpen }) => {
-  const { storage, firestore } = useFirebase();
   const { chatConfig } = useChat();
+  const { fetchUserById,userDetails} = useChats();
+  const {
+    fetchAvailableBackgrounds,
+    availableBackgrounds,
+    isInProgress,
+    resetBackgrounds,
+    currentBackground,
+    setCurrentBackground,
+    uploadingNewBackground
+     
+  } = useBackgrounds();
   const inputRef = useRef(null);
   const [image, setImage] = useState(new Blob());
   const [imageSrc, setImageSrc] = useState(null);
-  const [isUploading, setIsUploading] = useState(false);
-  const [urls,setUrls] = useState([]);
-
+ 
 
   useEffect(() => {
-   
-    async function fetchImages() {
-      await firestore
-        .collection('chatBackgrounds')
-        .doc(chatConfig?.userSecret)
-        .get()
-        .then(doc => {
-          if (doc?.exists) {
-            let arrHolder = doc?.data().backgroundImages;
-            arrHolder.map(img => 
-              setUrls(prev=>[...prev,(JSON.parse(img)).url])
-            )
-            
-          }
-      
-        });
-    };
-    if(chatConfig?.userSecret)fetchImages();
-      
-    return setUrls([])
-  },[chatConfig?.userSecret])
+    if (chatConfig?.userSecret && open) {
+      fetchAvailableBackgrounds();
+      fetchUserById(chatConfig?.userSecret)
+
+    }
+
+    return resetBackgrounds();
+  }, [chatConfig?.userSecret,open]);
 
   useEffect(() => {
     const fr = new FileReader();
     fr.onload = () => setImageSrc(fr.result);
     fr.readAsDataURL(image);
   }, [image]);
-
-
-  const backGroundImg = './../../static/img/cool-background-2.png';
 
   const onUpload = () => {
     const input = inputRef.current;
@@ -57,58 +47,10 @@ export const ChatBackgroundModal = ({ open, setOpen }) => {
       input.click();
     }
   };
-  const onSubmit = async () => {
-    let profile;
-    setIsUploading(true);
-    await firestore
-      .collection('chatBackgrounds')
-      .doc(chatConfig.userSecret)
-      .get()
-      .then(doc => {
-        profile = doc.exists;
-      });
+ 
 
-    fetch(imageSrc)
-      .then(res => res.blob())
-      .then(blob => {
-        const storageRef = storage.ref();
-        const uploadRef = storageRef.child(`${image?.lastModified}`);
-        uploadRef
-          .put(blob)
-          .then(() => {
-            uploadRef
-              .getDownloadURL()
-              .then(url => {
-                if (!profile) {
-                  firestore
-                    .collection('chatBackgrounds')
-                    .doc(chatConfig.userSecret)
-                    .set({
-                      backgroundImages: firebase.firestore.FieldValue.arrayUnion(
-                        JSON.stringify({ name: image?.name, url }),
-                      ),
-                    });
-                } else {
-                  firestore
-                    .collection('chatBackgrounds')
-                    .doc(chatConfig.userSecret)
-                    .update({
-                      backgroundImages: firebase.firestore.FieldValue.arrayUnion(
-                        JSON.stringify({ name: image?.name, url }),
-                      ),
-                    })
-                    .then(() => {
-                      setImage(new Blob());
-                    });
-                }
-              })
-              .catch(e => console.log(e));
-          })
-          .catch(e => console.log(e));
-      });
-    setIsUploading(false);
-  };
- console.log('urls',urls)
+  console.log('userfetched',userDetails)
+
   return (
     <div>
       <Modal
@@ -118,6 +60,8 @@ export const ChatBackgroundModal = ({ open, setOpen }) => {
         open={open}
         dimmer={'blurring'}
       >
+  
+
         <Modal.Header>Chat wallpaper Configuration</Modal.Header>
 
         <Modal.Content className={style.modalContent}>
@@ -134,46 +78,54 @@ export const ChatBackgroundModal = ({ open, setOpen }) => {
             }}
           />
 
-          <div
-            className={style.backgroundImage}
-            style={{ backgroundImage: `url(${backGroundImg})` }}
-          >
+          <div className={style.backgroundImage}>
             <div className={style.availbleImages}>
               <div className={style.toolBar}>
                 <Search
                   className={style.search}
                   size={'huge'}
-                  loading={true}
+                  loading={false}
                   showNoResults={false}
                   onSearchChange={() => {}}
                 />
-                <Button className={style.uploadNew} onClick={onUpload}>
+                <Button className={style.uploadNew} disabled={isInProgress} onClick={onUpload}>
                   {' '}
                   <Icon name="upload" />
-                  {isUploading ? 'Uploading File...' : ' Upload New'}
+                  {isInProgress ? 'Uploading File...' : ' Upload New'}
                 </Button>
               </div>
 
-              <div className={ style.mainContainer}>
-                {urls.map(file => {
+              <div className={style.mainContainer}>
+                {availableBackgrounds.map(file => {
                   return (
                     <div className={style.container}>
-                      <img src={file} alt="Avatar" className={style.image} />
-                    
-                    </div>)
-                })
-                }
-                </div>
-        
+                      <img
+                        src={file}
+                        alt="Avatar"
+                        className={style.image}
+                        onDoubleClick={() => setCurrentBackground(file)}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-            <div className={style.preview}></div>
+            <div className={style.preview}>
+              <h1>Preview</h1>
+              <img
+                className={style.previewImage}
+                src={currentBackground}
+                width="100%"
+                height="100%"
+              />
+            </div>
           </div>
         </Modal.Content>
 
         <Modal.Actions>
           <Button
             color="red"
-            disabled={isUploading}
+            disabled={isInProgress} 
             onClick={() => setOpen(false)}
           >
             Back
@@ -181,10 +133,10 @@ export const ChatBackgroundModal = ({ open, setOpen }) => {
           <Button
             content="Done"
             labelPosition="right"
-            disabled={!imageSrc}
+            disabled={isInProgress} 
             icon="checkmark"
             onClick={() => {
-              onSubmit();
+              uploadingNewBackground(imageSrc,setImage,image);
             }}
             positive
           />
